@@ -12,6 +12,10 @@ private:
   bool accion_pendiente = false;
   bool ultimo_valor = true;
   unsigned long ultimo_rebote = 0;
+  
+  bool estaRebotando() {
+    return (millis() - ultimo_rebote) < ANTIREBOTE_TIEMPO; 
+  }
 
 public:
   PulsadorConRebote(uint8_t pin)
@@ -21,11 +25,16 @@ public:
 
   void loop()
   {
+    if (estaRebotando()) {
+      return;
+    }
+
     bool valor_actual = digitalRead(pin);
 
-    if (valor_actual == false)
+    if (valor_actual == false && valor_actual != ultimo_valor)
     {
       accion_pendiente = true;
+      ultimo_rebote = millis();
     }
 
     ultimo_valor = valor_actual;
