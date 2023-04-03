@@ -1,0 +1,5 @@
+/documentos/*
+/simulacion/Project Backups/*
+/simulacion-arduino/build/*
+*/bin
+*/obj
