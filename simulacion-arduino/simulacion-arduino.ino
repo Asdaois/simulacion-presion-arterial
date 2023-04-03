@@ -1,19 +1,31 @@
+#include "Arduino.h"
+#include "pins_arduino.h"
 #include <Wire.h>
-
-#include <Adafruit_MCP4725.h>
-
-
 #include "datos.h"
-#define PIN_OUTPUT 9
+
+#define PRESION_MINIMA 40;
+#define PRESION_MAXIMA 120;
 
 int indice_actual = 0;
-const int milis_interrupcion = 8;
+int milis_interrupcion = 8;
 int actual_milisegundos_desde_ultimo_ciclo = 0;
 
+
+#include <Adafruit_MCP4725.h>
 Adafruit_MCP4725 dac;
+
+#include <LiquidCrystal.h>
+LiquidCrystal lcd(7, 6, 5, 4, 3, 2);
 
 void setup() {
   dac.begin(0x60);
+
+  lcd.begin(16, 2);
+  lcd.setCursor(0, 0);
+  lcd.print("Simulacion");
+  lcd.setCursor(0, 1);
+  lcd.print("Presion Arterial");
+  
 }
 
 void loop() {

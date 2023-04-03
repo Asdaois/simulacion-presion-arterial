@@ -1,6 +1,6 @@
 
 # Simulador de presión arterial
-
+## Primera Iteración
 - [X] Simular la presión arterial normal 
   - [X] cuales son los valores 120/80, diferencia de 40
 - [X] Simular la presión arterial alta 
@@ -20,6 +20,13 @@
   - [X] Tendrá tres botones para seleccionar la presión a mostrar
   - [X] Las salidas de las presiones es compartida tendrá una sola salida
 
-- [X] Hardware
-  - [ ] Valores del filtro paso bajo
+- [ ] Hardware
+  - [ ] Usar DAC MCP4725 para generar la onda 
   - [ ] Agregar un amplificador operacional para aislar la salida
+
+
+## Segunda Iteración
+- [ ] Cambiar la frecuencia cardíaca
+  - [ ] Presión cardiaca minima 40 ("Si eres atleta")
+  - [ ] Presión cardíaca maxima 120
+  - [ ] Usar dos botones una para aumentarla, y una para disminuirla
