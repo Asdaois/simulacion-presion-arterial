@@ -19,17 +19,19 @@ Adafruit_MCP4725 dac;
 LiquidCrystal lcd(7, 6, 5, 4, 3, 2);
 
 ValorSimulacion bpm(60, BPM_MIN, BPM_MAX, 0, 1);
+ValorSimulacion presion_minima(80, BPM_MIN, BPM_MAX, 9, 8);
+ValorSimulacion presion_maxima(120, BPM_MIN, BPM_MAX, 11, 10);
+ValorSimulacion dispositivo_medida_maxima(150, BPM_MIN, BPM_MAX, 13, 12);
 
 void setup() {
   dac.begin(0x60);
 
   lcd.begin(16, 2);
-  lcd.setCursor(0, 0);
-  lcd.print("Simulacion");
-  lcd.setCursor(0, 1);
-  lcd.print("Presion Arterial");
-  
+
   bpm.setup();
+  presion_minima.setup();
+  presion_maxima.setup();
+  dispositivo_medida_maxima.setup();
 }
 
 void loop() {
@@ -44,6 +46,9 @@ void loop() {
   }
  
   bpm.loop();
+  presion_minima.loop();
+  presion_maxima.loop();
+  dispositivo_medida_maxima.loop();
 }
 
 void mostrar_sennal_cardiaca() {
@@ -56,6 +61,8 @@ void mostrar_sennal_cardiaca() {
 
 void mostrar_frecuencia_cardiaca() {
   lcd.setCursor(0, 0);
-  lcd.print("BPM:" + String(bpm.obtener_valor()));
+  lcd.print("BPM:" + String(bpm.obtener_valor()) + " DISP:" + String(dispositivo_medida_maxima.obtener_valor()));
+  lcd.setCursor(0, 1);
+  lcd.print("MIN:" + String(presion_minima.obtener_valor()) + " MAX:" + String(presion_maxima.obtener_valor()));
 }
 
