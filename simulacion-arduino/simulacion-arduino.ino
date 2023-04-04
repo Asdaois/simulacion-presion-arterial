@@ -3,13 +3,14 @@
 #include <Wire.h>
 #include "datos.h"
 #include "pulsador_con_rebote.h"
+#include "valor_simulacion.h"
 
-#define PRESION_MINIMA 40;
-#define PRESION_MAXIMA 120;
+#define BPM_MIN 40
+#define BPM_MAX 120
 
 int indice_actual = 0;
-unsigned long actual_milisegundos_desde_ultimo_ciclo = 0;
-
+unsigned long milisegundos_desde_se_mostro_onda = 0;
+unsigned long milisegundos_desde_se_mostro_datos = 0;
 
 #include <Adafruit_MCP4725.h>
 Adafruit_MCP4725 dac;
@@ -17,9 +18,7 @@ Adafruit_MCP4725 dac;
 #include <LiquidCrystal.h>
 LiquidCrystal lcd(7, 6, 5, 4, 3, 2);
 
-uint8_t frecuencia_cardiaca = 60;
-
-PulsadorConRebote pulsador(0);
+ValorSimulacion bpm(60, BPM_MIN, BPM_MAX, 0, 1);
 
 void setup() {
   dac.begin(0x60);
@@ -30,22 +29,21 @@ void setup() {
   lcd.setCursor(0, 1);
   lcd.print("Presion Arterial");
   
-  pulsador.setup();
+  bpm.setup();
 }
 
 void loop() {
-  if ((millis() - actual_milisegundos_desde_ultimo_ciclo) > 8) {
+  if ((millis() - milisegundos_desde_se_mostro_onda) > 8) {
     mostrar_sennal_cardiaca();
-    actual_milisegundos_desde_ultimo_ciclo = millis();
+    milisegundos_desde_se_mostro_onda = millis();
   }
 
-  pulsador.loop();
-
-  if(pulsador.realizara_accion()) {
-    frecuencia_cardiaca++;
+  if ((millis() - milisegundos_desde_se_mostro_datos) > 50) {
     mostrar_frecuencia_cardiaca();
+    milisegundos_desde_se_mostro_datos = millis();
   }
-  
+ 
+  bpm.loop();
 }
 
 void mostrar_sennal_cardiaca() {
@@ -58,6 +56,6 @@ void mostrar_sennal_cardiaca() {
 
 void mostrar_frecuencia_cardiaca() {
   lcd.setCursor(0, 0);
-  lcd.print("BPM:" + String(frecuencia_cardiaca));
+  lcd.print("BPM:" + String(bpm.obtener_valor()));
 }
 

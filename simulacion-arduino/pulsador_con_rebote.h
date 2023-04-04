@@ -23,11 +23,15 @@ private:
   }
 
 public:
+  PulsadorConRebote() {}
   PulsadorConRebote(uint8_t pin)
   {
     this->pin = pin;
   }
 
+  void set_pin(uint8_t pin) {
+    this->pin = pin;
+  } 
   void loop()
   {
     bool valor_actual = digitalRead(pin);
