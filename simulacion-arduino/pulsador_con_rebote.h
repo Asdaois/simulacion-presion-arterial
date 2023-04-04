@@ -12,9 +12,14 @@ private:
   bool accion_pendiente = false;
   bool ultimo_valor = true;
   unsigned long ultimo_rebote = 0;
+  bool modo_continuo = false;
   
   bool estaRebotando() {
     return (millis() - ultimo_rebote) < ANTIREBOTE_TIEMPO; 
+  }
+
+  bool entraraModoContinuo(bool valor_actual) {
+    return (millis() - ultimo_rebote) > 500 && valor_actual == false;
   }
 
 public:
@@ -25,14 +30,25 @@ public:
 
   void loop()
   {
+    bool valor_actual = digitalRead(pin);
+
     if (estaRebotando()) {
       return;
     }
 
-    bool valor_actual = digitalRead(pin);
+    if (entraraModoContinuo(valor_actual)){
+      modo_continuo = true;
+    }
 
-    if (valor_actual == false && valor_actual != ultimo_valor)
+    bool pulsador_es_presionado = valor_actual == false && valor_actual != ultimo_valor;
+    if (pulsador_es_presionado)
     {
+      accion_pendiente = true;
+      ultimo_rebote = millis();
+      modo_continuo = false;
+    }
+
+    if (modo_continuo && valor_actual == false) {
       accion_pendiente = true;
       ultimo_rebote = millis();
     }
