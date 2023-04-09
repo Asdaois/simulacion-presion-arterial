@@ -53,7 +53,12 @@ void loop() {
 }
 
 void mostrar_sennal_cardiaca() {
-  dac.setVoltage( valores_presion_base[indice_actual] * 4095, false);
+  auto valor_tabla_actual = valores_presion_base[indice_actual];
+  auto valor_presion = (presion_maxima.obtener_valor() - presion_minima.obtener_valor()) * valor_tabla_actual + presion_minima.obtener_valor();
+  auto valor_presion_normalizada = valor_presion / PRESION_MONITOR_MAXIMA;
+  
+  dac.setVoltage( valor_presion_normalizada * 4095, false);
+
   indice_actual++;
   if (indice_actual > numero_pasos - 1) {
     indice_actual = 0;
