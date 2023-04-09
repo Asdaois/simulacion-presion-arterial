@@ -30,10 +30,12 @@ class ValorSimulacion {
       pulsador_bajada.loop();
       
       if (pulsador_subida.realizara_accion()) {
+        if (valor + 1 <= valor_maximo)
         this->valor += 1;
       }
 
       if (pulsador_bajada.realizara_accion()) {
+        if (valor - 1 >= valor_minimo)
         this->valor -= 1;
       }
     }
