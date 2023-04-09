@@ -17,5 +17,8 @@ int main()
       0.13485569, 0.12511769, 0.115422, 0.10577589, 0.096192636, 0.08669752, 0.07733512, 0.06817503, 0.05931618, 0.05089102, 0.04306481, 0.03603612,
       0.030034564, 0.02531981, 0.022180311, 0.020934077};
 
-  std::cout << "vector len " << valores_presion_base.size();
+  std::cout << "vector len " << valores_presion_base.size() << std::endl;
+  uint8_t bpm = 60;
+  long tiempo_cambio_datos = (bpm / 60) * 1000000 / 130;
+  std::cout << "Tiempo cambio datos" << tiempo_cambio_datos;
 }
