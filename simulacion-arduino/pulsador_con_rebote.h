@@ -23,6 +23,7 @@ private:
   }
 
 public:
+  
   PulsadorConRebote() {}
   PulsadorConRebote(uint8_t pin)
   {
@@ -35,7 +36,6 @@ public:
   void loop()
   {
     bool valor_actual = digitalRead(pin);
-
     if (estaRebotando()) {
       return;
     }
@@ -75,6 +75,10 @@ public:
   void setup()
   {
     pinMode(pin, INPUT_PULLUP);
+  }
+
+  bool esta_en_modo_continuo() {
+    return this->modo_continuo;
   }
 };
 

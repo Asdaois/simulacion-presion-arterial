@@ -30,13 +30,29 @@ class ValorSimulacion {
       pulsador_bajada.loop();
       
       if (pulsador_subida.realizara_accion()) {
-        if (valor + 1 <= valor_maximo)
-        this->valor += 1;
+
+        if (pulsador_subida.esta_en_modo_continuo()) {
+          this->valor += 3;
+        } else {
+          this->valor += 1;
+        }
+
+        if (valor >= valor_maximo) {
+          valor = valor_maximo;
+        }
       }
 
       if (pulsador_bajada.realizara_accion()) {
-        if (valor - 1 >= valor_minimo)
-        this->valor -= 1;
+        
+        if (pulsador_bajada.esta_en_modo_continuo()) {
+          this->valor -= 3;      
+        } else {
+          this->valor -= 1;
+        }
+
+        if (valor <= valor_minimo) {
+          valor = valor_minimo;
+        }
       }
     }
 
