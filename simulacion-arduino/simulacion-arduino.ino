@@ -66,6 +66,7 @@ void generar_onda_presion() {
 }
 
 void mostrar_frecuencia_cardiaca() {
+  lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print("BPM:" + String(bpm.obtener_valor()));
   // lcd.print(String(micros_ultimo_dato_mostrado));
