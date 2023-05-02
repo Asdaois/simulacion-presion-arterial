@@ -38,7 +38,7 @@ void loop() {
   }
 
   if ((micros() - micros_ultimo_dato_mostrado) > tiempo_cambio_datos) {
-    mostrar_sennal_cardiaca();
+    generar_onda_presion();
     micros_ultimo_dato_mostrado = micros();
   }
 
@@ -52,7 +52,7 @@ void loop() {
   presion_maxima.loop();
 }
 
-void mostrar_sennal_cardiaca() {
+void generar_onda_presion() {
   auto valor_tabla_actual = valores_presion_base[indice_actual];
   auto valor_presion = (presion_maxima.obtener_valor() - presion_minima.obtener_valor()) * valor_tabla_actual + presion_minima.obtener_valor();
   auto valor_presion_normalizada = valor_presion / PRESION_MONITOR_MAXIMA;
