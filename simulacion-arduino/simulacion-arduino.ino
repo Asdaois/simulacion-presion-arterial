@@ -66,13 +66,14 @@ void generar_onda_presion() {
 }
 
 void mostrar_frecuencia_cardiaca() {
+  auto const cadena_vacia = "    "; // Limpia el resto de la pantalla, evita errores de visualizacion
   lcd.clear();
   lcd.setCursor(0, 0);
-  lcd.print("BPM:" + String(bpm.obtener_valor()));
+  lcd.print("BPM:" + String(bpm.obtener_valor()) + cadena_vacia);
   // lcd.print(String(micros_ultimo_dato_mostrado));
   // lcd.print(String(micros() - micros_ultimo_dato_mostrado)+ "<->" + String(tiempo_cambio_datos));
   lcd.setCursor(0, 1);
-  lcd.print("MIN:" + String(presion_minima.obtener_valor()) + " MAX:" + String(presion_maxima.obtener_valor()));
+  lcd.print("MIN:" + String(presion_minima.obtener_valor()) + " MAX:" + String(presion_maxima.obtener_valor()) + cadena_vacia);
   // lcd.print("BPM:" + String(bpm.obtener_valor()));
 }
 
