@@ -1,10 +1,13 @@
+
 void setup() {
+  Serial.begin(9600);
   pantalla_configurar();
   pantalla_mostrar("Nada aca", "Segunda Linea", "Tercera Linea", "Cuarta Linea");
+  teclado_configurar();
+  Serial.println("Programa iniciado");
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
 }
 
 void pantalla_mostrar(String linea1, String linea2, String linea3, String linea4) {
