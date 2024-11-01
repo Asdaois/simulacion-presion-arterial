@@ -9,12 +9,11 @@
 #define D_E 7
 
 // Pines del keypad
-#define K_C1 8
-#define K_C2 9
-#define K_C3 10 // A0
-#define K_C4 11 // A1
-
-#define K_R1 12
-#define K_R2 13
-#define K_R3 14
-#define K_R4 15
+#define K_R1 8
+#define K_R2 9
+#define K_R3 10
+#define K_R4 11
+#define K_C1 12
+#define K_C2 13
+#define K_C3 14 // A0
+#define K_C4 15 // A1

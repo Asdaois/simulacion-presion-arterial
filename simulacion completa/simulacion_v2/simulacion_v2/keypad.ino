@@ -24,20 +24,6 @@ char teclado_obtener_key() {
   return teclado.getKey();
 }
 
-
-void teclado_evento(char key) {
-  Serial.println(String(key));
-  switch (teclado.getState()) {
-    case PRESSED:
-      break;
-
-    case RELEASED:
-      break;
-
-    case HOLD:
-      break;
-
-    default:
-      break;
-  }
+int teclado_obtener_estado() {
+  return teclado.getState();
 }
