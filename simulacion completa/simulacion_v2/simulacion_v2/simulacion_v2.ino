@@ -53,17 +53,17 @@ void teclado_evento(char key) {
     case PRESSED:
       switch (key) {
         case ECG_NORMAL:
-          pantalla_mostrar("ECG Normal", "", "", "");
+          ecg_cambiar_estado_normal();
           Serial.println("Tecla presionada: ECG Normal");
           break;
 
         case ECG_SOBLO_CORAZON:
-          pantalla_mostrar("ECG Soblo Corazon", "", "", "");
+          ecg_cambiar_estado_soplo();
           Serial.println("Tecla presionada: ECG Soblo Corazón");
           break;
 
         case ECG_ARRITMIA:
-          pantalla_mostrar("ECG Arritmia", "", "", "");
+          ecg_cambiar_estado_arritmia();
           Serial.println("Tecla presionada: ECG Arritmia");
           break;
 
@@ -113,22 +113,22 @@ void teclado_evento(char key) {
           break;
 
         case TEMPERATURA_SUBIR:
-          pantalla_mostrar("Temperatura Subir", "", "", "");
+          temperatura_aumentar();
           Serial.println("Tecla presionada: Temperatura Subir");
           break;
 
         case TEMPERATURA_BAJAR:
-          pantalla_mostrar("Temperatura Bajar", "", "", "");
+          temperatura_disminuir();
           Serial.println("Tecla presionada: Temperatura Bajar");
           break;
 
         case SO2_SUBIR:
-          pantalla_mostrar("SO2 Subir", "", "", "");
+          spo2_aumentar();
           Serial.println("Tecla presionada: SO2 Subir");
           break;
 
         case SO2_BAJAR:
-          pantalla_mostrar("SO2 Bajar", "", "", "");
+          spo2_disminuir();
           Serial.println("Tecla presionada: SO2 Bajar");
           break;
 
