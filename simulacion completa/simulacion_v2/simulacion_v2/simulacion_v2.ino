@@ -20,6 +20,17 @@
 #define SO2_SUBIR 'E'
 #define SO2_BAJAR 'F'
 
+#define TIEMPO_CUANDO_PRESIONADO 500
+typedef unsigned int uint;
+
+uint ultimo_tiempo_presionado = 0;
+
+enum PantallaActual {
+  Presion,
+  BPMYECG,
+  TemperaturaYSO2,
+};
+
 void setup() {
   Serial.begin(9600);
   pantalla_configurar();
@@ -62,22 +73,22 @@ void teclado_evento(char key) {
           break;
 
         case PRESION_DISTOLICA_SUBIR:
-          pantalla_mostrar("Presion Diastolica Subir", "", "", "");
+          presion_distolica_aumentar();
           Serial.println("Tecla presionada: Presion Diastolica Subir");
           break;
 
         case PRESION_DISTOLICA_BAJAR:
-          pantalla_mostrar("Presion Diastolica Bajar", "", "", "");
+          presion_distolica_disminuir();
           Serial.println("Tecla presionada: Presion Diastólica Bajar");
           break;
 
         case PRESION_SISTOLICA_SUBIR:
-          pantalla_mostrar("Presion Sistolica Subir", "", "", "");
+          presion_sistolica_aumentar();
           Serial.println("Tecla presionada: Presion Sistolica Subir");
           break;
 
         case PRESION_SISTOLICA_BAJAR:
-          pantalla_mostrar("Presion Sistolica Bajar", "", "", "");
+          presion_sistolica_disminuir();
           Serial.println("Tecla presionada: Presion Sistolica Bajar");
           break;
 
