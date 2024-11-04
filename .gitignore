@@ -3,3 +3,5 @@
 /simulacion-arduino/build/*
 */bin
 */obj
+/simulacion completa/generador_ondas/build
+/simulacion completa/test
