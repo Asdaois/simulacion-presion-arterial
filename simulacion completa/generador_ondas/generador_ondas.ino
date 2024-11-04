@@ -1,12 +1,15 @@
-const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
+const int rs = 7, en = 6, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
+
+const int col1 = 10, col2 = 11, col3 = 12, col4 = 13;
+const int row1 = A0, row2 = A1, row3 = 8, row4 =  9;
 
 #include <LiquidCrystal.h>
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
 #include <Keypad.h>
+#define ROWS 4 //four rows
+#define COLS 4 //three columns
 
-const byte ROWS = 4; //four rows
-const byte COLS = 4; //three columns
 char keys[ROWS][COLS] = {
   {'1','2','3','4'},
   {'5','6','7','8'},
@@ -20,7 +23,7 @@ Keypad keypad = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS );
 
 void setup() {
   lcd.begin(16, 4);
-  lcd.println("Hello World!");
+  lcd.print("Funcionando!");
 }
 
 void loop() {
