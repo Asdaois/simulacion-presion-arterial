@@ -31,6 +31,8 @@ enum PantallaActual {
   TemperaturaYSO2,
 };
 
+PantallaActual pantalla_actual = PantallaActual::Presion;
+
 void setup() {
   Serial.begin(9600);
   pantalla_configurar();
@@ -103,12 +105,12 @@ void teclado_evento(char key) {
           break;
 
         case MENU_SUBIR:
-          pantalla_mostrar("Menu Subir", "", "", "");
+          menu_arriba();
           Serial.println("Tecla presionada: Menú Subir");
           break;
 
         case MENU_BAJAR:
-          pantalla_mostrar("Menu Bajar", "", "", "");
+          menu_abajo();
           Serial.println("Tecla presionada: Menú Bajar");
           break;
 
@@ -145,6 +147,36 @@ void teclado_evento(char key) {
       break;
 
     default:
+      break;
+  }
+}
+
+void menu_arriba() {
+  // bpmecg -> presion -> tempso2
+  switch (pantalla_actual) {
+    case PantallaActual::BPMYECG:
+      pantalla_presion_mostrar();
+      break;
+    case PantallaActual::Presion:
+      pantalla_temperatura_spo2_mostrar();
+      break;
+    case PantallaActual::TemperaturaYSO2:
+      pantalla_ecg_bpm_mostrar();
+      break;
+  }
+}
+
+void menu_abajo() {
+  // bpmecg <- presion <- tempso2
+  switch (pantalla_actual) {
+    case PantallaActual::BPMYECG:
+      pantalla_temperatura_spo2_mostrar();
+      break;
+    case PantallaActual::Presion:
+      pantalla_ecg_bpm_mostrar();
+      break;
+    case PantallaActual::TemperaturaYSO2:
+      pantalla_presion_mostrar();
       break;
   }
 }

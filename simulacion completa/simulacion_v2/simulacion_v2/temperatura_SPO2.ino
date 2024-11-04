@@ -7,6 +7,7 @@ uint temperatura = 59;
 uint spo2 = 60;
 
 void pantalla_temperatura_spo2_mostrar() {
+  pantalla_actual = PantallaActual::TemperaturaYSO2;
   pantalla_mostrar("Temperatura",
                    "Valor: " + String(temperatura),
                    "SPO2",

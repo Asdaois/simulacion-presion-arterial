@@ -7,6 +7,7 @@ uint distolica = 59;
 uint sistolica = 60;
 
 void pantalla_presion_mostrar() {
+  pantalla_actual = PantallaActual::Presion;
   pantalla_mostrar("Sistolica",
                    "Valor: " + String(distolica),
                    "Distolica",
