@@ -95,12 +95,12 @@ void teclado_evento(char key) {
           break;
 
         case BMP_SUBIR:
-          pantalla_mostrar("BMP Subir", "", "", "");
+          bpm_subir();
           Serial.println("Tecla presionada: BMP Subir");
           break;
 
         case BMP_BAJAR:
-          pantalla_mostrar("BMP Bajar", "", "", "");
+          bpm_bajar();
           Serial.println("Tecla presionada: BMP Bajar");
           break;
 

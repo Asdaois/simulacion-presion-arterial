@@ -37,3 +37,13 @@ void ecg_cambiar_estado_soplo() {
   estadoECG = EstadosECG::Soplo;
   pantalla_ecg_bpm_mostrar();
 }
+
+void bpm_subir() {
+  bpm++;
+  pantalla_ecg_bpm_mostrar();
+}
+
+void bpm_bajar() {
+  bpm--;
+  pantalla_ecg_bpm_mostrar();
+}
