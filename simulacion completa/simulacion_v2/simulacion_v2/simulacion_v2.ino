@@ -21,6 +21,7 @@
 #define SO2_BAJAR 'F'
 
 #define TIEMPO_CUANDO_PRESIONADO 500
+#define FRECUENCIA_CARDIACA_NORMAL 60
 typedef unsigned int uint;
 
 uint ultimo_tiempo_presionado = 0;

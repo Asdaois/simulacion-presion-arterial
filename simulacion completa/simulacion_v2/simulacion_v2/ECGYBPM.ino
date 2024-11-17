@@ -8,7 +8,7 @@ EstadosECG estadoECG = EstadosECG::Normal;
 
 #define FRECUENCIA_CARDIACA_MINIMA 40
 #define FRECUENCIA_CARDIACA_MAXIMA 180
-#define FRECUENCIA_CARDIACA_NORMAL 60
+
 
 uint bpm = FRECUENCIA_CARDIACA_NORMAL;
 
@@ -69,11 +69,11 @@ void ecg_cambiar_estado_soplo() {
 void bpm_subir() {
   bpm++;
   pantalla_ecg_bpm_mostrar();
-  actualizar_dac_presion();
-  actualizar_dac_ecg();
+  actualizar_dac_presion(bpm);
+  actualizar_dac_ecg(bpm);
 }
 
-void actualizar_dac_ecg() {}
+void actualizar_dac_ecg(uint bpm) {}
 
 void bpm_bajar() {
   bpm--;
