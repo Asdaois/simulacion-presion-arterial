@@ -27,17 +27,11 @@ const float valores_presion_base[] PROGMEM = {
   0.022180311, 0.020934077
 };
 
-uint distolica = 59;
-uint sistolica = 60;
+uint distolica = 80;
+uint sistolica = 180;
 unsigned long tiempo_cambio_datos = DISTANCIA_ENTRE_DATOS_MICROS;
 unsigned long micros_ultimo_dato_mostrado = 0;
 
-#include <Adafruit_MCP4725.h>
-Adafruit_MCP4725 dac_presion;
-
-void setup_simulacion_presion() {
-  dac_presion.begin(0x60);
-}
 void pantalla_presion_mostrar() {
   pantalla_actual = PantallaActual::Presion;
   pantalla_mostrar(F("Sistolica"),
@@ -81,11 +75,12 @@ void generar_onda_presion() {
   auto valor_tabla_actual = valor_index_presion(indice_actual);
   auto valor_presion = (sistolica - distolica) * valor_tabla_actual + distolica;
   auto valor_presion_normalizada = valor_presion / PRESION_SISTOLICA_MAXIMA;
-
-  dac_presion.setVoltage(valor_presion_normalizada * 4095, false);
+  // dac_presion.setVoltage(valor_presion_normalizada * 4095, false);
+  dac_presion(valor_presion_normalizada * 4095);
 
   indice_actual++;
-  if (indice_actual > NUMERO_DATOS_PRESION - 1) {
+  
+  if (indice_actual > 129) {
     indice_actual = 0;
   }
 }

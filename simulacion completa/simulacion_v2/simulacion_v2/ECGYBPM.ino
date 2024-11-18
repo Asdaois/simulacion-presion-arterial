@@ -77,6 +77,8 @@ void actualizar_dac_ecg(uint bpm) {}
 
 void bpm_bajar() {
   bpm--;
+  actualizar_dac_presion(bpm);
+  actualizar_dac_ecg(bpm);
   pantalla_ecg_bpm_mostrar();
 }
 

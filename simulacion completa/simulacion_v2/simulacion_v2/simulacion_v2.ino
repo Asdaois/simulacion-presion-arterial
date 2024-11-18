@@ -35,17 +35,32 @@ enum PantallaActual {
 
 PantallaActual pantalla_actual = PantallaActual::Presion;
 
+#include <Adafruit_MCP4728.h>
+#include <Wire.h>
+
+Adafruit_MCP4728 mcp;
+
 void setup() {
   Serial.begin(9600);
   pantalla_configurar();
   pantalla_mostrar("Nada aca", "Segunda Linea", "Tercera Linea", "Cuarta Linea");
   teclado_configurar();
   Serial.println("Programa iniciado");
+
+   // Try to initialize!
+  if (!mcp.begin()) {
+    Serial.println("Failed to find MCP4728 chip");
+    while (1) {
+      delay(10);
+    }
+  }
 }
 
 void loop() {
   char key = teclado_obtener_key();
   manejar_key_sostenida();
+
+  loop_simulacion_presion();
 }
 
 void pantalla_mostrar(String linea1, String linea2, String linea3, String linea4) {
@@ -281,4 +296,18 @@ void manejar_key_sostenida() {
     default:
       Serial.println("Tecla no valida on hold");
   }
+}
+
+
+void dac_presion(uint valor) {
+  mcp.setChannelValue(MCP4728_CHANNEL_A, valor);
+}
+void dac_ecg(uint valor) {
+  mcp.setChannelValue(MCP4728_CHANNEL_B, valor);
+}
+void dac_temperatura(uint valor) {
+    mcp.setChannelValue(MCP4728_CHANNEL_C, valor);
+}
+void dac_spo2(uint valor) {
+    mcp.setChannelValue(MCP4728_CHANNEL_D, valor);
 }
