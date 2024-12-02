@@ -1,45 +1,47 @@
-uint temperatura_maxima = 45;
-uint temperatura_minima = 25;
-uint spo2_maxima = 100;
-uint spo2_minima = 0;
+#include "ValorRestringido.h"
 
-uint temperatura = 30;
-uint spo2 = 85;
+#define temperatura_maxima 45
+#define temperatura_minima 25
+#define spo2_maxima 100
+#define spo2_minima 0
+
+ValorRestringido temperatura(30, temperatura_minima, temperatura_maxima);
+ValorRestringido spo2(85, spo2_minima, spo2_maxima);
 
 void pantalla_temperatura_spo2_mostrar() {
   pantalla_actual = PantallaActual::TemperaturaYSO2;
   generar_onda_temperatura();
   generar_onda_spo2();
   pantalla_mostrar("Temperatura",
-                   "Valor: " + String(temperatura),
+                   "Valor: " + temperatura.obtenerS(),
                    "SPO2",
-                   "Valor: " + String(spo2));
+                   "Valor: " + spo2.obtenerS());
 }
 
 void temperatura_aumentar() {
-  temperatura++;
+  temperatura.aumentar(1);
   pantalla_temperatura_spo2_mostrar();
 }
 
 void temperatura_disminuir() {
-  temperatura--;
+  temperatura.disminuir(1);
   pantalla_temperatura_spo2_mostrar();
 }
 
 void generar_onda_temperatura() {
-  dac_temperatura(((double)temperatura / (double)temperatura_maxima) * 4095);
+  dac_temperatura(((double)temperatura.get_valor() / (double)temperatura_maxima) * 4095);
 }
 
 void spo2_aumentar() {
-  spo2++;
+  spo2.aumentar(1);
   pantalla_temperatura_spo2_mostrar();
 }
 
 void spo2_disminuir() {
-  spo2--;
+  spo2.disminuir(1);
   pantalla_temperatura_spo2_mostrar();
 }
 
 void generar_onda_spo2() {
-  dac_spo2(((double)spo2 / (double)100) * 4095);
+  dac_spo2(((double)spo2.get_valor() / (double)spo2_maxima) * 4095);
 }

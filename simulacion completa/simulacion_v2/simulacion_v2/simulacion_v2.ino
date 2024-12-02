@@ -47,7 +47,7 @@ void setup() {
   teclado_configurar();
   Serial.println("Programa iniciado");
 
-   // Try to initialize!
+  // Try to initialize!
   if (!mcp.begin()) {
     Serial.println("Failed to find MCP4728 chip");
     while (1) {
@@ -61,6 +61,7 @@ void loop() {
   manejar_key_sostenida();
 
   loop_simulacion_presion();
+  loop_simulacion_ecg();
 }
 
 void pantalla_mostrar(String linea1, String linea2, String linea3, String linea4) {
@@ -306,8 +307,8 @@ void dac_ecg(uint valor) {
   mcp.setChannelValue(MCP4728_CHANNEL_B, valor);
 }
 void dac_temperatura(uint valor) {
-    mcp.setChannelValue(MCP4728_CHANNEL_C, valor);
+  mcp.setChannelValue(MCP4728_CHANNEL_C, valor);
 }
 void dac_spo2(uint valor) {
-    mcp.setChannelValue(MCP4728_CHANNEL_D, valor);
+  mcp.setChannelValue(MCP4728_CHANNEL_D, valor);
 }

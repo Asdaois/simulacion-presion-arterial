@@ -1,3 +1,5 @@
+#include "ValorRestringido.h"
+
 #define PRESION_DISTOLICA_MINIMA 40
 #define PRESION_DISTOLICA_MAXIMA 160
 #define PRESION_SISTOLICA_MINIMA 120
@@ -27,36 +29,39 @@ const float valores_presion_base[] PROGMEM = {
   0.022180311, 0.020934077
 };
 
-uint distolica = 80;
-uint sistolica = 180;
+
+ValorRestringido distolica(80, PRESION_DISTOLICA_MINIMA, PRESION_DISTOLICA_MAXIMA);
+
+ValorRestringido sitolica(120, PRESION_DISTOLICA_MINIMA, PRESION_DISTOLICA_MAXIMA);
+
 unsigned long tiempo_cambio_datos = DISTANCIA_ENTRE_DATOS_MICROS;
 unsigned long micros_ultimo_dato_mostrado = 0;
 
 void pantalla_presion_mostrar() {
   pantalla_actual = PantallaActual::Presion;
   pantalla_mostrar(F("Sistolica"),
-                   "Valor: " + String(distolica),
+                   "Valor: " + distolica.obtenerS(),
                    F("Distolica"),
-                   "Valor: " + String(sistolica));
+                   "Valor: " + sitolica.obtenerS());
 }
 
 void presion_distolica_aumentar() {
-  distolica++;
+  distolica.aumentar(1);
   pantalla_presion_mostrar();
 }
 
 void presion_distolica_disminuir() {
-  distolica--;
+  distolica.disminuir(1);
   pantalla_presion_mostrar();
 }
 
 void presion_sistolica_aumentar() {
-  sistolica++;
+  sitolica.aumentar(1);
   pantalla_presion_mostrar();
 }
 
 void presion_sistolica_disminuir() {
-  sistolica--;
+  sitolica.disminuir(1);
   pantalla_presion_mostrar();
 }
 
@@ -73,13 +78,13 @@ void loop_simulacion_presion() {
 
 void generar_onda_presion() {
   auto valor_tabla_actual = valor_index_presion(indice_actual);
-  auto valor_presion = (sistolica - distolica) * valor_tabla_actual + distolica;
+  auto valor_presion = (sitolica.get_valor() - distolica.get_valor()) * valor_tabla_actual + distolica.get_valor();
   auto valor_presion_normalizada = valor_presion / PRESION_SISTOLICA_MAXIMA;
   // dac_presion.setVoltage(valor_presion_normalizada * 4095, false);
   dac_presion(valor_presion_normalizada * 4095);
 
   indice_actual++;
-  
+
   if (indice_actual > 129) {
     indice_actual = 0;
   }
