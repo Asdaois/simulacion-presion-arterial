@@ -4,7 +4,7 @@
 #define FILAS 4
 
 #include <LiquidCrystal.h>
-LiquidCrystal pantalla(D_RS, D_E, D_D4, D_D5, D_D6, D_D7);
+LiquidCrystal pantalla(D_RS, D_E, D_D7, D_D6, D_D5, D_D4);
 
 void pantalla_configurar() {
   pantalla.begin(COLUMNAS, FILAS);
