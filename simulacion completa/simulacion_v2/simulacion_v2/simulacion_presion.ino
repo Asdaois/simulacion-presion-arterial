@@ -32,7 +32,7 @@ const float valores_presion_base[] PROGMEM = {
 
 ValorRestringido distolica(80, PRESION_DISTOLICA_MINIMA, PRESION_DISTOLICA_MAXIMA);
 
-ValorRestringido sitolica(120, PRESION_DISTOLICA_MINIMA, PRESION_DISTOLICA_MAXIMA);
+ValorRestringido sistolica(120, PRESION_SISTOLICA_MINIMA, PRESION_SISTOLICA_MAXIMA);
 
 unsigned long tiempo_cambio_datos = DISTANCIA_ENTRE_DATOS_MICROS;
 unsigned long micros_ultimo_dato_mostrado = 0;
@@ -40,12 +40,15 @@ unsigned long micros_ultimo_dato_mostrado = 0;
 void pantalla_presion_mostrar() {
   pantalla_actual = PantallaActual::Presion;
   pantalla_mostrar(F("Sistolica"),
-                   "Valor: " + distolica.obtenerS(),
+                   "Valor: " + sistolica.obtenerS(),
                    F("Distolica"),
-                   "Valor: " + sitolica.obtenerS());
+                   "Valor: " + distolica.obtenerS());
 }
 
 void presion_distolica_aumentar() {
+  if (distolica.get_valor() + 1 > sistolica.get_valor()) {
+    return;
+  }
   distolica.aumentar(1);
   pantalla_presion_mostrar();
 }
@@ -56,12 +59,15 @@ void presion_distolica_disminuir() {
 }
 
 void presion_sistolica_aumentar() {
-  sitolica.aumentar(1);
+  sistolica.aumentar(1);
   pantalla_presion_mostrar();
 }
 
 void presion_sistolica_disminuir() {
-  sitolica.disminuir(1);
+  if (sistolica.get_valor() - 1 < distolica.get_valor()) {
+    return;
+  }
+  sistolica.disminuir(1);
   pantalla_presion_mostrar();
 }
 
@@ -78,7 +84,7 @@ void loop_simulacion_presion() {
 
 void generar_onda_presion() {
   auto valor_tabla_actual = valor_index_presion(indice_actual);
-  auto valor_presion = (sitolica.get_valor() - distolica.get_valor()) * valor_tabla_actual + distolica.get_valor();
+  auto valor_presion = (sistolica.get_valor() - distolica.get_valor()) * valor_tabla_actual + distolica.get_valor();
   auto valor_presion_normalizada = valor_presion / PRESION_SISTOLICA_MAXIMA;
   // dac_presion.setVoltage(valor_presion_normalizada * 4095, false);
   dac_presion(valor_presion_normalizada * 4095);

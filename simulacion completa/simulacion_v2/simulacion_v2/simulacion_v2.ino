@@ -43,17 +43,22 @@ Adafruit_MCP4728 mcp;
 void setup() {
   Serial.begin(9600);
   pantalla_configurar();
-  pantalla_mostrar("Nada aca", "Segunda Linea", "Tercera Linea", "Cuarta Linea");
+  pantalla_mostrar("Configurando", "Teclado matricial", "", "");
+  delay(100);
   teclado_configurar();
   Serial.println("Programa iniciado");
 
+  pantalla_mostrar("Configurando", "Chip MCP", "", "");
+  delay(200);
   // Try to initialize!
-  if (!mcp.begin()) {
-    Serial.println("Failed to find MCP4728 chip");
-    while (1) {
-      delay(10);
-    }
-  }
+  // mcp.begin();
+  // if (!mcp.begin()) {
+  //   Serial.println("Failed to find MCP4728 chip");
+  //   while (1) {
+  //     delay(10);
+  //   }
+  // }
+  pantalla_ecg_bpm_mostrar();
 }
 
 void loop() {
