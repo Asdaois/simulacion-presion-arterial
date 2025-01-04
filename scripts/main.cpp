@@ -19,6 +19,6 @@ int main()
 
   std::cout << "vector len " << valores_presion_base.size() << std::endl;
   uint8_t bpm = 60;
-  long tiempo_cambio_datos = (bpm / 60) * 1000000 / 130;
+  long tiempo_cambio_datos = (bpm / 60) * 1000000 / 256;
   std::cout << "Tiempo cambio datos" << tiempo_cambio_datos;
 }
