@@ -52,13 +52,12 @@ void loop() {
   
   if ((micros() - micros_ultimo_dato_mostrado) > tiempo_cambio_datos) {
     micros_ultimo_dato_mostrado = micros();
-    Serial.println(micros_ultimo_dato_mostrado);
 
     interrupt_simulation_ecg(i);
     interrupt_simulation_presion(i);
-    Serial.println();
+    i = i + 1;
 
-    if (i > NUMERO_DATOS - 1) {
+    if (i > 129) {
       i = 0;
     }
   }
