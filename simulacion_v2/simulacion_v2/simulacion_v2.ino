@@ -2,7 +2,7 @@
 
 #define TIEMPO_CUANDO_PRESIONADO 500
 #define FRECUENCIA_CARDIACA_NORMAL 60
-typedef unsigned int uint;
+
 
 uint ultimo_tiempo_presionado = 0;
 char key_sostenida = '#';
@@ -10,10 +10,10 @@ char key_sostenida = '#';
 enum PantallaActual {
   Presion,
   BPMYECG,
-  TemperaturaYSO2,
+  TemperaturaYSpO2,
 };
 
-PantallaActual pantalla_actual = PantallaActual::Presion;
+PantallaActual pantalla_actual;
 
 Adafruit_MCP4728 mcp;
 
@@ -163,7 +163,7 @@ void menu_arriba() {
     case PantallaActual::Presion:
       pantalla_temperatura_spo2_mostrar();
       break;
-    case PantallaActual::TemperaturaYSO2:
+    case PantallaActual::TemperaturaYSpO2:
       pantalla_ecg_bpm_mostrar();
       break;
   }
@@ -178,7 +178,7 @@ void menu_abajo() {
     case PantallaActual::Presion:
       pantalla_ecg_bpm_mostrar();
       break;
-    case PantallaActual::TemperaturaYSO2:
+    case PantallaActual::TemperaturaYSpO2:
       pantalla_presion_mostrar();
       break;
   }

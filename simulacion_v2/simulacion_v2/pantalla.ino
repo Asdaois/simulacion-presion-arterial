@@ -1,6 +1,6 @@
 #include "librerias.h"
 
-#define COLUMNAS 4
+#define COLUMNAS 16
 #define FILAS 4
 
 

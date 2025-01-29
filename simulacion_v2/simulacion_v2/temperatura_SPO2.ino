@@ -9,7 +9,7 @@ ValorRestringido temperatura(30, temperatura_minima, temperatura_maxima);
 ValorRestringido spo2(85, spo2_minima, spo2_maxima);
 
 void pantalla_temperatura_spo2_mostrar() {
-  pantalla_actual = PantallaActual::TemperaturaYSO2;
+  pantalla_actual = PantallaActual::TemperaturaYSpO2;
   generar_onda_temperatura();
   generar_onda_spo2();
   pantalla_mostrar("Temperatura",

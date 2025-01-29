@@ -91,7 +91,7 @@ void generar_onda_presion() {
 
   indice_actual++;
 
-  if (indice_actual > 129) {
+  if (indice_actual > NUMERO_DATOS_PRESION - 1) {
     indice_actual = 0;
   }
 }
