@@ -2,7 +2,8 @@
 
 #define TIEMPO_CUANDO_PRESIONADO 500
 #define FRECUENCIA_CARDIACA_NORMAL 60
-
+#define DISTANCIA_ENTRE_DATOS_MICROS 7692
+#define NUMERO_DATOS 130;
 
 uint ultimo_tiempo_presionado = 0;
 char key_sostenida = '#';
@@ -38,12 +39,29 @@ void setup() {
   pantalla_ecg_bpm_mostrar();
 }
 
+uint tiempo_cambio_datos = DISTANCIA_ENTRE_DATOS_MICROS;
+unsigned long micros_ultimo_dato_mostrado = 0;
+uint i = 0;
+
 void loop() {
   char key = teclado_obtener_key();
   manejar_key_sostenida();
 
-  loop_simulacion_presion();
-  loop_simulacion_ecg();
+  // loop_simulacion_presion();
+  // loop_simulacion_ecg();
+  
+  if ((micros() - micros_ultimo_dato_mostrado) > tiempo_cambio_datos) {
+    micros_ultimo_dato_mostrado = micros();
+    Serial.println(micros_ultimo_dato_mostrado);
+
+    interrupt_simulation_ecg(i);
+    interrupt_simulation_presion(i);
+    Serial.println();
+
+    if (i > NUMERO_DATOS - 1) {
+      i = 0;
+    }
+  }
 }
 
 void pantalla_mostrar(String linea1, String linea2, String linea3, String linea4) {

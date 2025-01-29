@@ -6,7 +6,7 @@
 #define PRESION_SISTOLICA_MAXIMA 220
 
 #define NUMERO_DATOS_PRESION 130;
-#define DISTANCIA_ENTRE_DATOS_MICROS 7692
+
 
 int indice_actual = 0;
 const float valores_presion_base[] PROGMEM = {
@@ -34,8 +34,6 @@ ValorRestringido distolica(80, PRESION_DISTOLICA_MINIMA, PRESION_DISTOLICA_MAXIM
 
 ValorRestringido sistolica(120, PRESION_SISTOLICA_MINIMA, PRESION_SISTOLICA_MAXIMA);
 
-unsigned long tiempo_cambio_datos = DISTANCIA_ENTRE_DATOS_MICROS;
-unsigned long micros_ultimo_dato_mostrado = 0;
 
 void pantalla_presion_mostrar() {
   pantalla_actual = PantallaActual::Presion;
@@ -94,6 +92,14 @@ void generar_onda_presion() {
   if (indice_actual > NUMERO_DATOS_PRESION - 1) {
     indice_actual = 0;
   }
+}
+
+void interrupt_simulation_presion(uint i) {
+  auto valor_tabla_actual = valor_index_presion(i);
+  auto valor_presion = (sistolica.get_valor() - distolica.get_valor()) * valor_tabla_actual + distolica.get_valor();
+  auto valor_presion_normalizada = valor_presion / PRESION_SISTOLICA_MAXIMA;
+  // dac_presion.setVoltage(valor_presion_normalizada * 4095, false);
+  dac_presion(valor_presion_normalizada * 4095);
 }
 
 float valor_index_presion(int i) {
