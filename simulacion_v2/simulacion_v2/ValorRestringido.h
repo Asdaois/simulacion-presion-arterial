@@ -19,7 +19,8 @@ public:
   }
 
   disminuir(uint cantidad) {
-    if (valor - cantidad < valor_minimo) {
+    // Solo funciona si el rango de limitacion son numeros positivos
+    if (valor - cantidad <= valor_minimo || (int)valor - (int)cantidad < 0) {
       valor = valor_minimo;
     } else {
       valor -= cantidad;
