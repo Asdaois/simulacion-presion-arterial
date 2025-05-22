@@ -27,6 +27,9 @@ public:
     }
   }
 
+  void set_valor(uint valor) {
+    this->valor = valor;
+  }
   uint get_valor() {
     return valor;
   }
