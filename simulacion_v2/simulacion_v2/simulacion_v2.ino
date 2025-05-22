@@ -5,6 +5,7 @@
 #define DISTANCIA_ENTRE_DATOS_MICROS 7692
 #define NUMERO_DATOS 130;
 
+
 uint ultimo_tiempo_presionado = 0;
 char key_sostenida = '#';
 
@@ -49,7 +50,7 @@ void loop() {
 
   // loop_simulacion_presion();
   // loop_simulacion_ecg();
-  
+
   if ((micros() - micros_ultimo_dato_mostrado) > tiempo_cambio_datos) {
     micros_ultimo_dato_mostrado = micros();
 
@@ -74,17 +75,20 @@ void teclado_evento(char key) {
       switch (key) {
         case ECG_NORMAL:
           ecg_cambiar_estado_normal();
+          cambiarEstado(configuracionEstadoNormal);
           Serial.println("Tecla presionada: ECG Normal");
           break;
 
         case ECG_SOBLO_CORAZON:
-          ecg_cambiar_estado_soplo();
-          Serial.println("Tecla presionada: ECG Soblo Corazón");
+          ecg_cambiar_estado_alto();
+          cambiarEstado(configuracionEstadoAlta);
+          Serial.println("Tecla presionada: ECG ALTO");
           break;
 
         case ECG_ARRITMIA:
-          ecg_cambiar_estado_arritmia();
-          Serial.println("Tecla presionada: ECG Arritmia");
+          ecg_cambiar_estado_bajo();
+          cambiarEstado(configuracionEstadoBaja);
+          Serial.println("Tecla presionada: ECG BAJO");
           break;
 
         case POR_DEFINIR:
@@ -278,8 +282,20 @@ void dac_ecg(uint valor) {
   mcp.setChannelValue(MCP4728_CHANNEL_B, valor);
 }
 void dac_temperatura(uint valor) {
+  Serial.print("DAC T: ");
+  Serial.println(valor);
   mcp.setChannelValue(MCP4728_CHANNEL_C, valor);
 }
 void dac_spo2(uint valor) {
+  Serial.print("DAC SPO2: ");
+  Serial.println(valor);
   mcp.setChannelValue(MCP4728_CHANNEL_D, valor);
+}
+
+
+void cambiarEstado(const ConfiguracionEstado &estado) {
+  set_bpm(estado.bpm);
+  set_presion(estado.sis, estado.dis);
+  set_temperatura(estado.T);
+  set_spo2(estado.O2);
 }
