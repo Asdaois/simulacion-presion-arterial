@@ -78,7 +78,7 @@ void loop_simulacion_ecg() {
 
 void interrupt_simulation_ecg(uint i) {
   auto valor_tabla_actual = valor_index_ecg(i);
-  auto valor_ecg = (int)(((double)valor_tabla_actual / (double)127) * 4095);
+  auto valor_ecg = (int)(((double)valor_tabla_actual / (double)255) * 4095);
   if (valor_ecg > 4095) {
     valor_ecg = 4095;
   }
