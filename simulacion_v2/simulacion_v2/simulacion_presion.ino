@@ -35,6 +35,11 @@ ValorRestringido distolica(80, PRESION_DISTOLICA_MINIMA, PRESION_DISTOLICA_MAXIM
 ValorRestringido sistolica(120, PRESION_SISTOLICA_MINIMA, PRESION_SISTOLICA_MAXIMA);
 
 
+void set_presion(uint sis, uint dis) {
+  sistolica.set_valor(sis);
+  distolica.set_valor(dis);
+}
+
 void pantalla_presion_mostrar() {
   pantalla_actual = PantallaActual::Presion;
   pantalla_mostrar(F("Sistolica"),

@@ -3,8 +3,8 @@
 
 enum EstadosECG {
   Normal,
-  Arritmia,
-  Soplo,
+  Alto,
+  Bajo,
 };
 
 EstadosECG estadoECG = EstadosECG::Normal;
@@ -35,8 +35,8 @@ String estado_ecg_to_string() {
   pantalla_actual = PantallaActual::BPMYECG;
   switch (estadoECG) {
     case EstadosECG::Normal: return "Normal";
-    case EstadosECG::Arritmia: return "Arritmia";
-    case EstadosECG::Soplo: return "Soplo";
+    case EstadosECG::Alto: return "Alto";
+    case EstadosECG::Bajo: return "Bajo";
   }
 }
 
@@ -52,19 +52,25 @@ void ecg_cambiar_estado_normal() {
   pantalla_ecg_bpm_mostrar();
 }
 
-void ecg_cambiar_estado_arritmia() {
-  estadoECG = EstadosECG::Arritmia;
+void ecg_cambiar_estado_bajo() {
+  estadoECG = EstadosECG::Alto;
   pantalla_ecg_bpm_mostrar();
 }
 
-void ecg_cambiar_estado_soplo() {
-  estadoECG = EstadosECG::Soplo;
+void ecg_cambiar_estado_alto() {
+  estadoECG = EstadosECG::Bajo;
   pantalla_ecg_bpm_mostrar();
 }
 
 void bpm_subir() {
   bpm.aumentar(1);
   pantalla_ecg_bpm_mostrar();
+  actualizar_dac_presion(bpm.get_valor());
+  actualizar_dac_ecg(bpm.get_valor());
+}
+
+void set_bpm(uint valor) {
+  bpm.set_valor(valor);
   actualizar_dac_presion(bpm.get_valor());
   actualizar_dac_ecg(bpm.get_valor());
 }
